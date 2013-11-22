@@ -76,6 +76,9 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 					//뷰 카운터를 하나 증가시킨다.
 					//{조건},{변경된 문서} 
 					db.coupon.update({_id:coupon._id},{"$inc":{viewCount: 1}}, function(err){
+						
+						// 웹소켓으로 수정된 조회수 top5 를 전송한다.
+						
 						DaoUtil.objectIdToString(coupon);
 						dao.callback(err, coupon);
 					});
