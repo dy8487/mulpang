@@ -77,10 +77,15 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 					//{조건},{변경된 문서} 
 					db.coupon.update({_id:coupon._id},{"$inc":{viewCount: 1}}, function(err){
 						
-						// 웹소켓으로 수정된 조회수 top5 를 전송한다.
-						
+						// 웹소켓으로 수정된 조회수 top5 를 전송한다.						
+						dao.topCoupon("viewCount", function(err, result){
+							//sockets : 접속된 모든 클라이언트의 connection 이 들어가 있음
+							//emit : 동작하라는 의미						
+							dao.res.io.sockets.emit("websocketAnswer", result);	
+						});
 						DaoUtil.objectIdToString(coupon);
 						dao.callback(err, coupon);
+						
 					});
 				});
 			});

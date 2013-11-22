@@ -32,7 +32,12 @@ app.get('/', router.index);
 app.get('/index.html', router.index);
 app.get('/coupon_all.html', router.all);
 
-app.get('/request', router.request);
+//app.get('/request', router.request);
+app.get('/request', function(res, req){
+	res.io = io;
+	router.request(res, req);
+});
+
 app.post('/request', router.request);
 
 app.get('/*.html', router.forward);
