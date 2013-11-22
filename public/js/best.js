@@ -66,9 +66,18 @@ $(function(){
 	
 	// 웹소켓 서버에 연결한다.(현재 도메인)
 	socket = io.connect("/");
+	
+	//서버로부터 받음
+	socket.on("welcome", function(msg){
+		console.log(msg);
+	});
+	
 	socket.on("websocketAnswer", function(data){
 		drawViewGraph(data);
 	});
+	
+	//서버로 보냄, 서버의 hello 이벤트를 호출하라.
+	socket.emit("hello", "안녕.");
 	
 });
 

@@ -46,7 +46,23 @@ var httpServer = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+// socket.io 서버 구동
 var io = require("socket.io").listen(httpServer);
+
+//기본적으로 connection 이벤트 발생
+//클라이언트가 웹소켓서버에 접속할 때
+//io.sockets : 전체
+//socket : 특정 클라이언트
+io.sockets.on("connection", function(socket){
+	//서버역활을 하는 곳.
+	socket.emit("welcome","접속을 환영합니다.");
+	socket.broadcast.emit("welcome", socket.id + " 님이 들어왔습니다.");
+	
+	socket.on("hello", function(msg){
+		console.log(msg);
+	});
+});
+
 
 
 
