@@ -33,9 +33,9 @@ app.get('/index.html', router.index);
 app.get('/coupon_all.html', router.all);
 
 //app.get('/request', router.request);
-app.get('/request', function(res, req){
+app.get('/request', function(req, res){
 	res.io = io;
-	router.request(res, req);
+	router.request(req, res);
 });
 
 app.post('/request', router.request);
