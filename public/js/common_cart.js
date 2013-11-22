@@ -32,6 +32,11 @@ function setAddCartEvent(){
 
 // 관심 쿠폰 등록(로컬 스토리지에 저장)
 function addCart(coupon){
+	
+	if(window.webkitNotifications){ //속성 지원되면 사용승인 요청
+		window.webkitNotifications.requestPermission();
+	}
+	
 	var couponId = coupon.attr("data-couponid");
 	var couponName = coupon.children("h1").text();
 	var couponImg = coupon.children(".list_img").attr("src");
