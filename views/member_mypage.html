@@ -1,0 +1,60 @@
+<div id="main">			
+	<section id="join_section">
+		<h1>회원정보 수정</h1> 
+		<form name="join_form">
+			<img src="image/member/seulbinim@gmail.com.jpg" alt="">
+			<table id="join_form_table">
+				<tr>
+					<th>이메일</th>
+					<td>${userId}</td>
+				</tr>
+				<tr>
+					<th><label for="profile">프로필 이미지</label></th>
+					<td>
+						<input type="file" accept="*.jpg" id="profile">
+						<progress value="0"></progress>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="password_old">비밀번호</label></th>
+					<td><input type="password" id="password_old" name="oldPassword" required></td>
+				</tr>
+				<tr>
+					<th><label for="password">새 비밀번호</label></th>
+					<td><input type="password" id="password" name="password"></td>
+				</tr>
+				<tr>
+					<th><label for="password2">새 비밀번호확인</label></th>
+					<td><input type="password" id="password2"></td>
+				</tr>
+			</table>
+			<div class="btn_div"><button type="submit">정보 수정</button></div>
+		</form>
+	</section>
+	<section id="my_coupon_section">
+		<h1>내가 구매한 쿠폰 리스트</h1>            
+		<article class="coupon_preview">
+			<h1 tabindex="0"><a href="/" title="쿠폰 상세보기로">평양냉면</a></h1>
+			<img class="coupon_list_image" src="image/photo/coupon_01.jpg" alt="">
+			<p>기대를 가지고 찾아갔던 평양냉명. 맛은 그냥 So So...한번은 몰라도 두번은 생각날 맛은 아닌것 같다.<p>
+			<p>★★★☆☆<p>
+			<time datetime="2012-06-14">2012년 6월 14일</time>
+		</article>
+			
+		<article class="coupon_preview">
+			<h1 tabindex="0"><a href="/" title="쿠폰 상세보기로">커피통 와플</a></h1>
+			<img class="coupon_list_image" src="image/photo/coupon_02.jpg" alt="">
+			<p>와플의 굽기도 적당하고 함께 나온 아이스 크림은 너무 맛있었다눈. 일산에 있는 맛집으로 콕 찜해두어야겠다.<p>
+			<p>★★★★☆<p>
+			<time datetime="2012-07-10">2012년 7월 10일</time>
+		</article>
+		
+		<article class="coupon_preview">
+			<h1 tabindex="0"><a href="/" title="쿠폰 상세보기로">토속촌 삼계탕</a></h1>
+			<img class="coupon_list_image" src="image/photo/coupon_03.jpg" alt="">
+			<p>닭요리를 좋아하는 나를위해 친구가 추천해준 맛집. 정말 맛있는 삼계탕이었다. 국물도 최고! 또 방문하고 싶어지는 맛집이다.<p>
+			<p>★★★★★<p>
+			<time datetime="2012-07-25">2012년 7월 25일</time>
+		</article>                            
+	</section>
+</div>
