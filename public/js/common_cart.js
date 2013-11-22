@@ -114,11 +114,13 @@ function requestQuantity(){
 		if(es != null){
 			es.close();
 		}
+		//Server-Send Event
 		es = new EventSource("request?cmd=couponQuantity&couponIdList=" + couponIdList);
 		es.onmessage = function(me){
 			console.log(me.data);
 			// 서버의 응답 처리
-			$.each(eval(me.data), function(i){
+			//$.each(eval(me.data), function(i){
+			$.each(JSON.parse(me.data), function(i){
 				var resultCoupon = this;
 				// 남은 갯수
 				var count = resultCoupon.quantity - resultCoupon.buyQuantity;
@@ -143,7 +145,7 @@ function requestQuantity(){
 
 // 바탕화면 알림 서비스를 보여준다.
 function showNoti(notiMsg){
-	// 알림메세지 출력
+	// 알림메세지 출력(Web Notifications API:크롬에서만 동작)
 	if(window.webkitNotifications 
 		&& window.webkitNotifications.checkPermission() == 0){
 		window.webkitNotifications.createNotification(notiMsg.img, "마감임박!!!", notiMsg.msg).show();

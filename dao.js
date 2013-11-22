@@ -166,17 +166,20 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 		
 		var dao = this;
 		// 쿠폰아이디 배열에 포함된 쿠폰을 조회한다. 
-		db.coupon.find({_id: {"$in": idObjArray}}, {quantity: 1, buyQuantity: 1, couponName: 1}).toArray(function(err, list){
-			DaoUtil.objectIdToString(list);
-			
-			// Server-Sent Events 형식의 응답 헤더 설정
-			dao.res.contentType("text/event-stream");
-			dao.res.write('data: ' + JSON.stringify(list));
-			dao.res.write("\n\n");
-			dao.res.write("retry: " + 1000*10);
-			dao.res.write("\n");
-			dao.res.end();
-		});
+		db.coupon.find(
+			{_id: {"$in": idObjArray}}
+			, {quantity: 1, buyQuantity: 1, couponName: 1}).toArray(
+				function(err, list){
+					DaoUtil.objectIdToString(list);
+					
+					// Server-Sent Events 형식의 응답 헤더 설정
+					dao.res.contentType("text/event-stream");
+					dao.res.write('data: ' + JSON.stringify(list));
+					dao.res.write("\n\n");
+					dao.res.write("retry: " + 1000*10);
+					dao.res.write("\n");
+					dao.res.end();
+				});
 	},
 
 	// 회원 가입
