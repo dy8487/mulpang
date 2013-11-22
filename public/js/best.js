@@ -79,6 +79,10 @@ $(function(){
 	//서버로 보냄, 서버의 hello 이벤트를 호출하라.
 	socket.emit("hello", "안녕.");
 	
+	socket.on("abc", function(){
+		socket.disconnect();
+	});
+	
 });
 
 // 판매순 그래프를 그린다.(Canvas)

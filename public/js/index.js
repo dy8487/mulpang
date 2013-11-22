@@ -164,6 +164,7 @@ function getCouponList(){
 				}
 			}
 			
+			setAddCartEvent();
 			setDetailEvent();
 			sliding();
 			setBuyFormEvent();

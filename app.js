@@ -61,6 +61,11 @@ io.sockets.on("connection", function(socket){
 	socket.on("hello", function(msg){
 		console.log(msg);
 	});
+	
+	socket.on("disconnect", function(){
+		socket.broadcast.emit("welcome", socket.id + " 님이 나갔습니다.");
+	});
+	
 });
 
 
