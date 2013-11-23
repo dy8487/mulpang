@@ -2,7 +2,7 @@
 
 $(function(){	
 	// 프로필 이미지 선택 시(common_member.js의 uploadProfile 함수를 호출한다.)
-	
+	$("#profile").change(uploadProfileImage);
 	
 	// 회원 가입 버튼 클릭 이벤트
 	

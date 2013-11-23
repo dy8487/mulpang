@@ -49,3 +49,8 @@ exports.request = function(req, res){
 		}
 	});
 };
+
+exports.upload = function(req, res){
+	var tmpName = req.files.profile.path.split("\\tmp\\");
+	res.send(tmpName);
+};

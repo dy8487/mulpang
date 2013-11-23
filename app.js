@@ -27,12 +27,15 @@ app.engine('.html', require('jqtpl').__express);
 app.locals.layout = true;
 app.use(express.favicon());
 //app.use(express.logger('dev'));
-app.use(express.bodyParser());
+app.use(express.bodyParser({
+	uploadDir: __dirname + "/public/tmp", //파일업로드 임시 저장경로
+	keepExtension: true //확장자 유지여부
+}));
 
 //쿠키 사용
 app.use(express.cookieParser());
 //세션 사용
-app.use(express.session({cookie: {maxAge: 1000*60*30}}));
+//app.use(express.session({cookie: {maxAge: 1000*60*30}}));
 
 app.use(express.methodOverride());
 app.use(app.router);
@@ -54,7 +57,7 @@ app.get('/request', function(req, res){
 });
 
 app.post('/request', router.request);
-
+app.post('/upload', router.upload);
 app.get('/*.html', router.forward);
 
 var httpServer = http.createServer(app).listen(app.get('port'), function(){
