@@ -55,11 +55,54 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 		}
 		//검색조건
 		var query = {};
-		db.coupon.find(query,resultAttr).toArray(function(err, result){
-			//this.callback(err, result);	//이곳의 this 는 function 자체를 나타냄
-			DaoUtil.objectIdToString(result);
-			dao.callback(err, result);			
-		});	
+		
+		var now = new Date();		
+		
+		// 검색조건(기간)
+		// 현재 기준으로 판매시작일이 지난 쿠폰
+		//query["saleDate.start"] = {"$lte": now};
+		
+		switch(this.params.search_date){
+		case "buyable":			
+			query["saleDate.finish"] = {"$gte": now};
+			break;
+		case "past":
+			query["saleDate.finish"] = {"$lt": now};
+			break;
+		case "all":
+			// 특별히 추가할 조건 없음
+		}
+		
+		// 검색조건(지역명)
+		if(this.params.search_location && this.params.search_location != ""){
+			query["region"] = this.params.search_location;
+		}
+		
+		// 검색조건(검색어)
+		if(this.params.search_keyword && this.params.search_keyword.trim() != ""){
+			// 정규표현식 i -> 대소문자 무시
+			query["$or"] = [{couponName: new RegExp(this.params.search_keyword, "i")}, {desc: new RegExp(this.params.search_keyword, "i")}];
+		}
+		
+		// 정렬 옵션
+		var orderBy = {};
+		if(this.params.list_order){
+			orderBy[this.params.list_order] = -1;
+		}else{	// 정렬 조건이 없을 경우
+			orderBy = {
+				"saleDate.start": -1,		// 판매 시작일의 내림차순(최근 판매 쿠폰 먼저)
+				"saleDate.finish": 1		// 판매 종료일의 오름차순(종료가 얼마 남지 않은 쿠폰 먼저)
+			};
+		}
+		
+		db.coupon.find(query,resultAttr)
+			.sort(orderBy)
+			.toArray(
+				function(err, result){
+				//this.callback(err, result);	//이곳의 this 는 function 자체를 나타냄
+					DaoUtil.objectIdToString(result);
+					dao.callback(err, result);			
+				});	
 	},
 	
 	// 쿠폰 상세 조회

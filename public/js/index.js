@@ -3,13 +3,36 @@ var page = 1;	// 현재 페이지
 // 페이지 로딩 후 실행
 //window.onload = function(){};
 $(function(){
+	
+	//dateToString : 2번째 인자 값이 없으면 오늘날짜.
+	$("#time > time").attr("datetime", Util.dateToString("-")).text(Util.dateToString("."));
 	//setDetailEvent();
 	if( $("body").attr("id") == "all" ){
 		$("#coupon").attr("class", "list");
 	}
 	setSlideEvent();
 	getCouponList();
+	
+	setSearchEvent();
+	setOrderEvent();
 });
+
+// 검색 이벤트 등록
+function setSearchEvent(){
+	$("#coupon_search").submit(function(){
+		getCouponList( $(this).serialize() );
+		return false;
+	});
+}
+
+// 정렬 이벤트 등록
+function setOrderEvent(){
+	$("#order").submit(function(){
+		getCouponList( $("#coupon_search").serialize(), $(this).serialize() );
+		return false;
+	});
+}
+
 
 // 쿠폰 상세보기 이벤트와 상세보기 닫기 이벤트를 추가한다.
 function setDetailEvent(){
@@ -143,8 +166,18 @@ function setTabEvent(coupon){
 }
 
 //쿠폰 목록을 조회한다.
-function getCouponList(){
-	var params = {cmd: "couponList"};
+function getCouponList(condition, orderBy){
+	
+	var params = "cmd=couponList";
+	if(condition){
+		params += "&" + condition;
+		if(orderBy){
+			params += "&" + orderBy;
+		}
+	}
+	
+	console.log(params);
+	
 	$.ajax({
 		url: "request",
 		data: params,
@@ -154,6 +187,8 @@ function getCouponList(){
 			console.log(data);
 			var couponList = $("#tmpl_coupon_list").tmpl(data);
 			$(".coupon_list").empty().append(couponList);
+			
+			page = 1;
 			
 			var couponSizeOfLastPage = couponList.size() % 5;
 			if(couponList.size() == 0 || couponSizeOfLastPage > 0){
