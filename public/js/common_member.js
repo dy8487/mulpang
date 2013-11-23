@@ -7,8 +7,7 @@ $(function(){
 
 // 프로필 이미지를 업로드 한다.
 function uploadProfileImage(){
-	// 파일을 선택한 후에 파일 선택을 취소했을 경우
-	alert('!');
+	// 파일을 선택한 후에 파일 선택을 취소했을 경우	
 	if(this.files.length == 0) return;
 	
 	var progress = $("#join_section progress");
@@ -37,8 +36,9 @@ function uploadProfileImage(){
 	// 서버의 응답 완료시 발생
 	// 프로필 이미지를 업로드 하면 서버에서는 임시로 만들어지는 파일명을 응답으로 넘겨준다.
 	xhr.onload = function(){
-		var tmpFileName = xhr.responseText;		
-		console.log(tmpFileName);
+		console.log("success");
+		var tmpFileName = xhr.responseText;						
+		console.log(tmpFileName);		
 		$("#join_section form [name=tmpFileName]").val(tmpFileName);		// 회원가입
 		//$("#my_coupon_section form[name=tmpFileName]").val(tmpFileName);	// 회원 수정
 		// 업로드한 이미지를 보여준다.
@@ -47,10 +47,11 @@ function uploadProfileImage(){
 	};
 	
 	// 3. 선택한 프로필 이미지를 서버로 업로드한다.	
-	var formData = new FormData();
+	var formData = new FormData();	
+	console.log(this.files[0]);
 	formData.append("profile", this.files[0]); //this 는 file
 	xhr.open("post", "upload", true); //true : 비동기
 	xhr.send(formData); //예전에는 문자열만 가능했음
-	
+	console.log("xhr.send...done");
 	
 }
