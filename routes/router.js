@@ -6,12 +6,31 @@ var clog = require("clog");
 var util = require("util");
 
 exports.index = function(req, res) {
-	res.render('index', {pageId : 'today', js:"index.js"});
+	res.render(
+		'index', 
+		{
+			pageId : 'today', 
+			js:"index.js",
+			userInfo:{
+				"userId": req.session.userId,
+				"profileImage": req.session.profileImage
+			}
+		}
+	);
 };
 
 exports.all = function(req, res) {
 	//res.render('coupon_all', {pageId : 'all'});
-	res.render('index', {pageId : 'all', js: "index.js"});
+	res.render('index', 
+		{
+			pageId : 'all', 
+			js: "index.js",			
+			userInfo:{
+				"userId": req.session.userId,
+				"profileImage": req.session.profileImage
+			}
+		}
+	);
 };
 
 exports.forward = function(req, res) {
@@ -21,7 +40,14 @@ exports.forward = function(req, res) {
 	var pageId = uri.substring( uri.indexOf("_") + 1 );
 	// location.html -> location
 	pageId = pageId.substring(0, pageId.lastIndexOf("."));
-	res.render(uri, {pageId: pageId, js: pageId + ".js"});
+	res.render(uri, {
+		pageId: pageId, 
+		js: pageId + ".js", 
+		userInfo: {
+			"userId": req.session.userId, 
+			"profileImage": req.session.profileImage
+		}
+	});
 };
 
 exports.request = function(req, res){

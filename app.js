@@ -32,8 +32,13 @@ app.use(express.bodyParser({
 
 //쿠키 사용
 app.use(express.cookieParser());
-//세션 사용
-//app.use(express.session({cookie: {maxAge: 1000*60*30}}));
+//세션 사용 -> 반드시 쿠키 뒤에서 사용해야 함. 세션은 쿠키를 함으로..
+app.use(express.session(
+	{
+		secret: "keyboard cat",
+		cookie: {maxAge: 1000*60*30}
+	}
+));
 
 app.use(express.methodOverride());
 app.use(app.router);

@@ -1,10 +1,19 @@
 /* 로그인 기능 */
 
 $(function(){
+	if(userInfo.userId == ""){
 	
-	var tmpl = $("#tmpl_login_form").tmpl();
-	$("#member_info").empty().append(tmpl);
-	$("#login").submit(login);
+		var tmpl = $("#tmpl_login_form").tmpl();
+		$("#member_info").empty().append(tmpl);
+		$("#member_info > form").submit(login);
+			
+	}else{
+		
+		var tmpl = $("#tmpl_member_info").tmpl(userInfo);
+		$("#member_info").empty().append(tmpl);
+		
+	}
+	
 	
 });
 
@@ -24,8 +33,7 @@ function login(){
 					alert(data.msg);
 				}else{					
 					
-					var tmpl = $("#tmpl_member_info").tmpl(data);
-					$("#member_info").empty().append(tmpl);
+					window.location.href = "/";
 					
 				}
 							

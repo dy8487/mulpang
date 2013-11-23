@@ -220,7 +220,13 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 		// 지정한 아이디와 비밀번호로 회원을 조회한다.
 		db.member.findOne(this.params, {_id: 1, profileImage: 1}, function(err, member){
 			if(member){
+				
+				//세션으로 profile 정보 대체
+				dao.req.session.userId = member._id;
+				dao.req.session.profileImage = member.profileImage;
+				
 				dao.callback(err, member);
+				
 			}else{
 				var errMsg = {
 					err: "아이디 비번 오류",

@@ -16,6 +16,12 @@
 <script src="js/common_login.js"></script>
 
 <script src="js/${js}"></script>
+<script>
+	userInfo = {
+		userId: "${userInfo.userId}",
+		profieImage: "${userInfo.profileImage}"
+	};
+</script>
 </head>
 
 <body id="${pageId}">
@@ -92,8 +98,8 @@
 <script type="text/x-jquery-tmpl" id="tmpl_member_info">
 	
 	<h1 class="blind">회원정보</h1>
-	<img src="image/{%= profileImage %}" class="user_profile" alt="{%= _id %}회원 이미지">
-	<b> Welcome:: {%= _id %} 님 </b> 
+	<img src="image/{%= profieImage %}" class="user_profile" alt="{%= userId %}회원 이미지">
+	<b> Welcome:: {%= userId %} 님 </b> 
 	<a href="member_mypage.html" class="go_mypage">마이 페이지로</a>
 	<a href="logout.html" class="logout">로그아웃</a>
 	
