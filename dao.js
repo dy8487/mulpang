@@ -285,15 +285,18 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 	},
 	
 	// 회원 정보 수정
-	updateMember: function(){		
+	updateMember: function(){
+		
 		var oldPassword = this.params.oldPassword;	// 이전 비밀번호	
 		delete this.params.oldPassword;
 		
 		var dao = this;
 		
-		if(this.params._id == undefined){	// 세션에 아이디가 없을 경우
-			var err = {result: {err: "에러", msg: "로그인이 필요한 서비스입니다."}};
-			dao.callback(err);
+		this.params._id = this.req.session.userId;
+		
+		if(!this.params._id){	// 세션에 아이디가 없을 경우
+			var err = {err: "에러", msg: "로그인이 필요한 서비스입니다."};
+			dao.callback(null, err);
 		}else{	
 			// 이전 비밀번호로 회원 정보를 조회한다.
 			db.member.findOne({_id: this.params._id, password: oldPassword}, function(err, member){

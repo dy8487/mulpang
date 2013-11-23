@@ -54,11 +54,11 @@
 			<section id="join_section">
 				<h1>회원정보 수정</h1> 
 				<form name="join_form">
-					<img src="image/member/seulbinim@gmail.com.jpg" alt="">
+					<img src="image/${userInfo.profileImage}" alt="${userInfo.userId} 회원 이미지">
 					<table id="join_form_table">
 						<tr>
 							<th>이메일</th>
-							<td>${userId}</td>
+							<td>${userInfo.userId}</td>
 						</tr>
 						<tr>
 							<th><label for="profile">프로필 이미지</label></th>

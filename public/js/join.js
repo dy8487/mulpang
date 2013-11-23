@@ -35,8 +35,6 @@ function registMember(){
 			}
 		});
 		
-		return false; //submit 동작 중지
-		
 	}
-	return false;
+	return false; //submit 동작 중지
 }
