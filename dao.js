@@ -243,7 +243,7 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 		var dao = this;
 		if(this.params._id == undefined){	// 세션에 아이디가 없을 경우
 			var err = {result: {err: "에러", msg: "로그인이 필요한 서비스입니다."}};
-			dao.callback(err);
+			dao.callback(null, err);
 		}else{			
 			// 회원 정보를 가져온다.
 			db.member.findOne(this.params, {_id: 1, profileImage: 1}, function(err, member){
@@ -332,17 +332,31 @@ Dao.prototype = { //prototype 은 javascript 의 객체 생성시 method 를 선
 	
 	// 쿠폰 후기 등록
 	insertEpilogue: function(){
-		this.params.regDate = new Date();	// 등록일
-		this.params.couponId = new ObjectId(this.params.couponId);
-		var dao = this;
-		db.epilogue.insert(this.params, function(err, epilogueObj){
-			// 후기 등록에 성공했을 경우
-			// 쿠폰 컬렉션의 후기 수와 만족도 합계를 업데이트 한다.
-			db.coupon.update({_id: dao.params.couponId}, {"$inc": {epilogueCount: 1}, "$inc": {satisfactionSum: parseInt(dao.params.satisfaction)}}, function(err, result){
-				DaoUtil.objectIdToString(epilogueObj);
-				dao.callback(err, epilogueObj);
+		
+		this.params.writer = this.req.session.userId;
+		
+		if(!this.params.writer){
+				
+			var err = {err: "에러", msg: "로그인이 필요한 서비스입니다."};
+			dao.callback(null, err);
+			
+		}else{
+			
+			this.params.regDate = new Date();	// 등록일
+			this.params.couponId = new ObjectId(this.params.couponId);
+		
+			var dao = this;
+			db.epilogue.insert(this.params, function(err, epilogueObj){
+				// 후기 등록에 성공했을 경우
+				// 쿠폰 컬렉션의 후기 수와 만족도 합계를 업데이트 한다.
+				db.coupon.update({_id: dao.params.couponId}, {"$inc": {epilogueCount: 1}, "$inc": {satisfactionSum: parseInt(dao.params.satisfaction)}}, function(err, result){
+					DaoUtil.objectIdToString(epilogueObj);
+					dao.callback(err, epilogueObj);
+				});
 			});
-		});
+			
+		}
+		
 	}
 	
 };

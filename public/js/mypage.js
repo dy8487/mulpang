@@ -7,11 +7,35 @@ $(function(){
 	// 회원 가입 버튼 클릭 이벤트
 	$("#join_section > form").submit(updateMember);
 	
+	showMember();
+	
 });
 
 // 회원 정보를 보여준다.
 function showMember(){
+	var params = {
+		cmd: "getMember"
+	};
 	
+	$.ajax({
+		url: "request",
+		dataType: "json",
+		data: params,
+		type: "get",
+		success: function(result){
+			if(result.err){
+				alert(result.msg);
+				window.location.href = "/";
+			}else{
+				// 회원 정보 출력
+				console.log(result);
+				var coupon = $("#tmpl_mycoupon").tmpl(result.coupon);
+				coupon.appendTo("#my_coupon_section");
+				// 상품 후기 등록 이벤트
+				$("#epilogue_form").submit(registEpilogue);
+			}
+		}
+	});
 }
 
 // 회원 정보를 수정한다.
@@ -49,7 +73,24 @@ function updateMember(){
 
 // 상품후기 입력
 function registEpilogue(){
+	var form = $(this);
+	var params = form.serialize();
 	
+	$.ajax({
+		url: "request",
+		data: params,
+		type: "post",
+		success: function(result){
+			if(result.err){
+				alert(result.msg);
+			}else{
+				alert("쿠폰 후기 등록이 완료되었습니다.");
+				window.location.reload();
+			}
+		}
+	});
+	
+	return false;
 }
 
 

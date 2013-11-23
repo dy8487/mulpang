@@ -475,7 +475,7 @@ function registPurchase(){
   			isMember: true, 
   			regDate: new Date(now-60*60*24*1)
   		},
-  		{
+		{
   			couponId: couponObjId[1], 
   			email: "uzoolove@gmail.com", 
   			quantity: 10, 
