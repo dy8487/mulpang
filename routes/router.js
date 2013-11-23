@@ -53,5 +53,8 @@ exports.request = function(req, res){
 exports.upload = function(req, res){
 	var tmpName = req.files.profile.path.split("\\tmp\\");
 	tmpName = tmpName[tmpName.length -1]; //배열의 마지막 요소(파일명)
+	clog.debug("exports.uplaod==>");
+	clog.debug(tmpName);
+	clog.debug("exports.uplaod<==");
 	res.send(tmpName);
 };

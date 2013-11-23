@@ -27,9 +27,9 @@ app.engine('.html', require('jqtpl').__express);
 app.locals.layout = true;
 app.use(express.favicon());
 //app.use(express.logger('dev'));
-app.use(express.bodyParser({
+app.use(express.bodyParser({	
 	uploadDir: __dirname + "/public/tmp", //파일업로드 임시 저장경로
-	keepExtension: true //확장자 유지여부
+	keepExtensions: true //확장자 유지여부
 }));
 
 //쿠키 사용

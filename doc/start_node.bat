@@ -1,5 +1,5 @@
 c:
-cd c:\workspace\Html5Project\mulpang
+cd c:\_workspace\mulpang
 node app.js
 
 pause
