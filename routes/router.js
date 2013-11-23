@@ -83,3 +83,8 @@ clog.debug("upload");
 	clog.debug(tmpName);	
 	res.send(tmpName);
 };
+
+exports.logout = function(req, res) {
+	req.session.destroy();	//세션삭제
+	res.redirect("/");
+};

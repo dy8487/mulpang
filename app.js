@@ -61,6 +61,7 @@ app.get('/request', function(req, res){
 
 app.post('/request', router.request);
 app.post('/upload', router.upload);
+app.get('/logout.html', router.logout);
 app.get('/*.html', router.forward);
 
 var httpServer = http.createServer(app).listen(app.get('port'), function(){
