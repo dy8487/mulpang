@@ -2,7 +2,9 @@
 
 $(function(){
 	
-	$("#member_info > form").submit(login);
+	var tmpl = $("#tmpl_login_form").tmpl();
+	$("#member_info").empty().append(tmpl);
+	$("#login").submit(login);
 	
 });
 
@@ -21,7 +23,10 @@ function login(){
 				if(data.err){
 					alert(data.msg);
 				}else{					
-					window.location.href = "/";
+					
+					var tmpl = $("#tmpl_member_info").tmpl(data);
+					$("#member_info").empty().append(tmpl);
+					
 				}
 							
 			}

@@ -40,17 +40,8 @@
 				</ul>
 			</nav>
 			<div id="member_info">
-				<h1 class="blind">로그인</h1>
-				<form id="login" name="login_form" action="#" method="post">
-					<input type="hidden" name="cmd" value="login">
-					<label for="login_id">아이디</label>
-					<input type="email" id="login_id" name="_id" required placeholder="등록된 e-mail 입력">
-					<label for="login_password">비밀번호</label>
-					<input type="password" id="login_password" name="password" required placeholder="비밀번호 입력">
-					<input type="submit" value="로그인">
-				</form>
-				<a href="member_join.html" class="member_join">회원가입</a>
-			</div>
+
+			</div>			
 			<div id="cart" class="carton">
 				<h2 class="interest">관심쿠폰</h2>
 				<p class="interest_cnt">0</p>
@@ -81,3 +72,29 @@
 	</div>
 </body>
 </html>
+
+
+<script type="text/x-jquery-tmpl" id="tmpl_login_form">
+
+	<h1 class="blind">로그인</h1>
+	<form id="login" name="login_form" action="#" method="post">
+		<input type="hidden" name="cmd" value="login">
+		<label for="login_id">아이디</label>
+		<input type="email" id="login_id" name="_id" required placeholder="등록된 e-mail 입력">
+		<label for="login_password">비밀번호</label>
+		<input type="password" id="login_password" name="password" required placeholder="비밀번호 입력">
+		<input type="submit" value="로그인">
+	</form>
+	<a href="member_join.html" class="member_join">회원가입</a>
+					
+</script>
+
+<script type="text/x-jquery-tmpl" id="tmpl_member_info">
+	
+	<h1 class="blind">회원정보</h1>
+	<img src="image/{%= profileImage %}" class="user_profile" alt="{%= _id %}회원 이미지">
+	<b> Welcome:: {%= _id %} 님 </b> 
+	<a href="member_mypage.html" class="go_mypage">마이 페이지로</a>
+	<a href="logout.html" class="logout">로그아웃</a>
+	
+</script>				
